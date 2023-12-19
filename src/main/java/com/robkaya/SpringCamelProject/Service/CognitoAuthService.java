@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CognitoAuthService {
+
     private static final Logger logger = LoggerFactory.getLogger(CognitoAuthService.class);
+
 
 }
