@@ -30,8 +30,13 @@ public class ErrorHandler {
         throw new RuntimeException(errorMessage, e);
     }
 
-    public static void handleGenericError(String username, Exception e) {
+    public static void handleOtherRegisterError(String username, Exception e) {
         String errorMessage = "An unexpected error occurred during registering: " + username;
+        logger.error(errorMessage, e);
+        throw new RuntimeException(errorMessage, e);
+    }
+    public static void handleConfirmationError(String username, Exception e) {
+        String errorMessage = "An unexpected error occurred during Confirmation with the User: " + username;
         logger.error(errorMessage, e);
         throw new RuntimeException(errorMessage, e);
     }

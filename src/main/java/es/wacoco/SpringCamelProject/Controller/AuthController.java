@@ -3,13 +3,11 @@ package es.wacoco.SpringCamelProject.Controller;
 
 import es.wacoco.SpringCamelProject.Service.CognitoAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class AuthController {
 
     private final CognitoAuthService cognitoAuthService;
@@ -18,28 +16,47 @@ public class AuthController {
     public AuthController(CognitoAuthService cognitoAuthService) {
         this.cognitoAuthService = cognitoAuthService;
     }
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "register";
+    }
 
-
-    @PostMapping("/signup")
-    public ResponseEntity<String> signUp(
+    @PostMapping("/register")
+    public String register(
             @RequestParam String username,
             @RequestParam String password,
-            @RequestParam String email) {
+            @RequestParam String email,
+            Model model) {
         try {
             cognitoAuthService.signUp(username, password, email);
-            return ResponseEntity.status(HttpStatus.OK).body("Signup successful");
+            return "redirect:/confirm";
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            model.addAttribute("error", e.getMessage());
+            return "register";
         }
     }
 
+    @GetMapping("/confirm")
+    public String showConfirmPage() {
+        return "confirm";
+    }
+
     @PostMapping("/confirm")
-    public ResponseEntity<String> confirmSignUp(@RequestParam String username, @RequestParam String confirmationCode) {
+    public String confirm(
+            @RequestParam String username,
+            @RequestParam String confirmationCode,
+            Model model) {
         try {
             cognitoAuthService.confirmSignUp(username, confirmationCode);
-            return ResponseEntity.ok("Confirmation successful");
+            return "redirect:/home";
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            model.addAttribute("error", e.getMessage());
+            return "confirm";
         }
+    }
+
+    @GetMapping("/home")
+    public String showHomePage() {
+        return "home";
     }
 }
