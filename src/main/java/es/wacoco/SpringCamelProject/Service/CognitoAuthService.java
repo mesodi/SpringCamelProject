@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.*;
 @Service
 public class CognitoAuthService {
-
     private static final Logger logger = LoggerFactory.getLogger(CognitoAuthService.class);
     private final AwsCredentials awsCredentials;
 
@@ -50,7 +49,7 @@ public class CognitoAuthService {
             ErrorHandler.handleWeakPasswordError();
         } catch (Exception e) {
             // Handle other exceptions
-            ErrorHandler.handleGenericError(username, e);
+            ErrorHandler.handleOtherRegisterError(username, e);
         }
     }
 
@@ -75,9 +74,10 @@ public class CognitoAuthService {
         } catch (CodeMismatchException e) {
             ErrorHandler.handleInvalidConfirmationCodeError(username, e);
         } catch (Exception e) {
-            ErrorHandler.handleGenericError(username, e);
+            ErrorHandler.handleConfirmationError(username, e);
         }
     }
+
 
     private void addUserToGroup(String username) {
         try {
@@ -90,9 +90,9 @@ public class CognitoAuthService {
             awsCredentials.getCognitoClient().adminAddUserToGroup(addUserToGroupRequest);
 
             // Log confirmation message
-            logger.info("User added to group: {} - {}", username, "Default");
+            logger.info("User added to group: {} - {}", username, "Admin");
         } catch (Exception e) {
-            ErrorHandler.handleGenericError(username, e);
+            ErrorHandler.handleOtherRegisterError(username, e);
         }
     }
     // Check if the email is already registered
