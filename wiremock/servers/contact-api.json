@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/contact"
+  },
+  "response": {
+    "status": 200,
+    "body": "{ \"name\": \"A123456\", \"username\": \"john_doe\", \"lastname\": \"Doe\", \"email\": \"john.doe@example.com\", \"address\": \"123 Main Street, Cityville, State, Country\", \"additionalInfo\": { \"field1\": \"value1\", \"field2\": \"value2\" } }",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
+

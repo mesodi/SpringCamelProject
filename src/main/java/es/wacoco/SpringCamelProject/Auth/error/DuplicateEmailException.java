@@ -1,4 +1,4 @@
-package es.wacoco.SpringCamelProject.error;
+package es.wacoco.SpringCamelProject.Auth.error;
 
 public class DuplicateEmailException extends RuntimeException {
 
