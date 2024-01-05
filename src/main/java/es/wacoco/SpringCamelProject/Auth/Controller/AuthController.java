@@ -1,7 +1,7 @@
-package es.wacoco.SpringCamelProject.Controller;
+package es.wacoco.SpringCamelProject.Auth.Controller;
 
 
-import es.wacoco.SpringCamelProject.Service.CognitoAuthService;
+import es.wacoco.SpringCamelProject.Auth.Service.CognitoAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,6 +52,25 @@ public class AuthController {
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
             return "confirm";
+        }
+    }
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(
+            @RequestParam String username,
+            @RequestParam String password,
+            Model model) {
+        try {
+            // Call the signIn method from CognitoAuthService
+            cognitoAuthService.signIn(username, password);
+            return "redirect:/home";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+            return "login";
         }
     }
 

@@ -1,13 +1,16 @@
-package es.wacoco.SpringCamelProject.Service;
+package es.wacoco.SpringCamelProject.Auth.Service;
 
-import es.wacoco.SpringCamelProject.Cognito.AwsCredentials;
-import es.wacoco.SpringCamelProject.error.DuplicateEmailException;
-import es.wacoco.SpringCamelProject.error.ErrorHandler;
+import es.wacoco.SpringCamelProject.Auth.Cognito.AwsCredentials;
+import es.wacoco.SpringCamelProject.Auth.error.DuplicateEmailException;
+import es.wacoco.SpringCamelProject.Auth.error.ErrorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.*;
+
+import java.util.Map;
+
 @Service
 public class CognitoAuthService {
     private static final Logger logger = LoggerFactory.getLogger(CognitoAuthService.class);
@@ -66,7 +69,7 @@ public class CognitoAuthService {
 
             awsCredentials.getCognitoClient().confirmSignUp(request);
 
-            // Add newly confirmed user to a Admin group
+            // Add newly confirmed user to Admin group
             addUserToGroup(username);
 
             // Log confirmation message
@@ -75,6 +78,29 @@ public class CognitoAuthService {
             ErrorHandler.handleInvalidConfirmationCodeError(username, e);
         } catch (Exception e) {
             ErrorHandler.handleConfirmationError(username, e);
+        }
+    }
+    public void signIn(String username, String password) {
+        try {
+            logger.info("Initiating user sign-in for username: {}", username);
+            AdminInitiateAuthRequest authRequest = AdminInitiateAuthRequest.builder()
+                    .authFlow(AuthFlowType.ADMIN_NO_SRP_AUTH)
+                    .authParameters(
+                            Map.of(
+                                    "USERNAME", username,
+                                    "PASSWORD", password
+                            )
+                    )
+                    .clientId(awsCredentials.getCognitoClientId())
+                    .userPoolId(awsCredentials.getCognitoPoolId())
+                    .build();
+
+            awsCredentials.getCognitoClient().adminInitiateAuth(authRequest);
+            // Log confirmation message
+            logger.info("User sign-in successful for username: {}", username);
+
+        } catch (CognitoIdentityProviderException e) {
+            ErrorHandler.handLoginException("Invalid Credential, Please try again: {}", username, e);
         }
     }
 

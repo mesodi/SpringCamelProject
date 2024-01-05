@@ -1,4 +1,4 @@
-package es.wacoco.SpringCamelProject.error;
+package es.wacoco.SpringCamelProject.Auth.error;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,5 +39,10 @@ public class ErrorHandler {
         String errorMessage = "An unexpected error occurred during Confirmation with the User: " + username;
         logger.error(errorMessage, e);
         throw new RuntimeException(errorMessage, e);
+    }
+
+    public static void handLoginException(String message, String username, Exception e) {
+        logger.error(message, username, e);
+        throw new RuntimeException(message, e);
     }
 }

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/company"
+  },
+  "response": {
+    "status": 200,
+    "body": "{ \"name\": \"A123456\", \"jobHistory\": [ { \"companyName\": \"ABC Corporation\", \"position\": \"Software Engineer\", \"duration\": \"2018-2020\" }, { \"companyName\": \"XYZ Ltd\", \"position\": \"Senior Developer\", \"duration\": \"2021-present\" } ], \"quickInfo\": { \"field1\": \"value1\", \"field2\": \"value2\" } }",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
+

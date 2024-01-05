@@ -1,4 +1,4 @@
-package es.wacoco.SpringCamelProject.Cognito;
+package es.wacoco.SpringCamelProject.Auth.Cognito;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
