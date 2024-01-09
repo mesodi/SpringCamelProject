@@ -65,6 +65,16 @@ public class CamelService {
             return "Error occurred during getting info from user contact: " + e.getMessage();
         }
     }
+    public String qualifiedApplicantsRoute() {
+        try{
+            ProducerTemplate producerTemplate=camelContext.createProducerTemplate();
+            String response=producerTemplate.requestBody("direct:qualifiedApplicants",null, String.class);
+            return "Camel route processing initiated! Response from qualifiedApplicants server:\n" + response + "\n Date:" +getFormattedTimestamp();
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Error occured during selecting the applicants:" +e.getMessage();
+        }
+    }
 
     private String getFormattedTimestamp() {
         // Get the current timestamp using a custom formatter without milliseconds
@@ -72,4 +82,6 @@ public class CamelService {
         DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return timestamp.format(customFormatter);
     }
+
+
 }

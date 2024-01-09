@@ -28,4 +28,7 @@ public class CamelController {
         return camelService.contactRoute();
     }
 
+    @GetMapping("/qualifiedApplicants")
+    public String qualifiedApplicants(){return camelService.qualifiedApplicantsRoute();}
+
 }
