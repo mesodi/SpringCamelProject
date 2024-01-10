@@ -23,6 +23,13 @@ public class CamelRoutes extends RouteBuilder {
                 .to("http://localhost:3000/contact")
                 .log("Data retrieved from CamelController: ${body}")
                 .to("log:myLogger?level=INFO");
+
+        //Criminal Server
+        from("direct:criminal")
+                .to("http://localhost:3000/criminal")
+                .log("Data retrieved from CamelController: ${body}")
+                .to("log:myLogger?level=INFO");
     }
+
 
 }
