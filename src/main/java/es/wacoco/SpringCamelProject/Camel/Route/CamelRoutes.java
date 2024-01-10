@@ -1,6 +1,11 @@
 package es.wacoco.SpringCamelProject.Camel.Route;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
+import com.jayway.jsonpath.JsonPath;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.builder.RouteBuilder;
+import org.springframework.stereotype.Component;
 
 @Component
 public class CamelRoutes extends RouteBuilder {
