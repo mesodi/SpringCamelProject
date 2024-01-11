@@ -3,18 +3,20 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Logging in to DockerHub
+      - echo Logging in to DockerHub as $DOCKERHUB_USERNAME
       - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
 
   build:
     commands:
-#      - mvn test
-#      - mvn clean install
+      # Uncomment if necessary
+      # - mvn test
+      # - mvn clean install
       - echo Building Docker image
-      - docker build --build-arg COGNITO_REGION=$REGION --build-arg USER_POOL=$USER_POOL --build-arg CLIENT_ID=$CLIENT_ID --build-arg ACCESS_KEY=$ACCESS_KEY --build-arg SECRET_KEY=$SECRET_KEY  -t johnnie3000/backend:v0 .
+      - docker build --build-arg COGNITO_REGION=$REGION --build-arg USER_POOL=$USER_POOL --build-arg CLIENT_ID=$CLIENT_ID --build-arg ACCESS_KEY=$ACCESS_KEY --build-arg SECRET_KEY=$SECRET_KEY -t johnnie3000/backend:v0 .
       - docker push docker.io/johnnie3000/backend:v0
 
   post_build:
     commands:
-#      - mvn verify
-      - echo Build completed on `date`
+      # Uncomment if necessary
+      # - mvn verify
+      - echo "Build completed on $(date)"
