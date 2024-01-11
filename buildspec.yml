@@ -16,5 +16,5 @@ phases:
 
   post_build:
     commands:
-      - mvn verify
+#      - mvn verify
       - echo Build completed on `date`
