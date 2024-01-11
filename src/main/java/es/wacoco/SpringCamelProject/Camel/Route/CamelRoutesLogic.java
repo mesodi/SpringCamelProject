@@ -13,12 +13,14 @@ public class CamelRoutesLogic extends RouteBuilder {
                 .otherwise()
                 .to("direct: unQualifiedApplicant");
 
-        from("direct: qualifiedApplicant")
-                .log("Qualified applicant: ${body}")
-                .to("mock:qualifiedApplicants");
+        from("direct:qualifiedApplicant")
+                .doTry().setHeader("subject", simple("JavaInUse Invitation111"))
+                .setHeader("to", simple("robkaya@icloud.com"))
+                .to("smtps://smtp.gmail.com:465?username=berntson.hh@gmail.com&password=rvtygxpmqxzoqlfv");
 
         from("direct:unQualifiedApplicant")
-                .log("UnQualifiedApplicant: ${body}")
-                .to("mock:unQualifiedApplicants");
+                .doTry().setHeader("subject", simple("JavaInUse Invitation111"))
+                .setHeader("to", simple("robkaya@icloud.com"))
+                .to("smtps://smtp.gmail.com:465?username=berntson.hh@gmail.com&password=rvtygxpmqxzoqlfv");
     }
 }
