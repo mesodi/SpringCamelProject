@@ -29,7 +29,7 @@ public class CamelController {
     @GetMapping("/criminal")
     public String criminal( ) {return camelService.criminalRoute();}
 
-    @GetMapping("/qualifiedApplicants")
+    @GetMapping("/qualifiedApplicant")
     public String qualifiedApplicants(){return camelService.qualifiedApplicantsRoute();}
 
 }

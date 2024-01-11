@@ -2,7 +2,9 @@ package es.wacoco.SpringCamelProject.Auth.Controller;
 
 
 import es.wacoco.SpringCamelProject.Auth.Service.CognitoAuthService;
+import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -78,4 +80,15 @@ public class AuthController {
     public String showHomePage() {
         return "home";
     }
-}
+
+    @Autowired
+    private ProducerTemplate producerTemplate;
+
+    @GetMapping("/qualifiedApplicants")
+    public ResponseEntity<String> triggerQualifiedApplicantsRoute() {
+            producerTemplate.sendBody("direct:qualifiedApplicants", "Some data");
+            return ResponseEntity.ok("Route triggered");
+        }
+    }
+
+
