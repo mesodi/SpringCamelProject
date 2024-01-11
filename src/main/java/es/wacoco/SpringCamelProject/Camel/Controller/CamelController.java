@@ -24,9 +24,10 @@ public class CamelController {
         return camelService.companyRoute();
     }
     @GetMapping("/contact")
-    public String contact( ) {
-        return camelService.contactRoute();
-    }
+    public String contact( ) {return camelService.contactRoute();}
+
+    @GetMapping("/criminal")
+    public String criminal( ) {return camelService.criminalRoute();}
 
     @GetMapping("/qualifiedApplicants")
     public String qualifiedApplicants(){return camelService.qualifiedApplicantsRoute();}

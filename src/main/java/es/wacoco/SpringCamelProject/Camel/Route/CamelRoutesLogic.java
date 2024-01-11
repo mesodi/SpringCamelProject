@@ -2,7 +2,7 @@ package es.wacoco.SpringCamelProject.Camel.Route;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class DecisionCamelRoute extends RouteBuilder {
+public class CamelRoutesLogic extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:hiringProcess")
