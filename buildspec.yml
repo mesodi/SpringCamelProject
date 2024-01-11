@@ -8,7 +8,7 @@ phases:
 
   build:
     commands:
-      - mvn test
+#      - mvn test
       - mvn clean install
       - echo Building Docker image
       - docker build --build-arg COGNITO_REGION=$REGION --build-arg USER_POOL=$USER_POOL --build-arg CLIENT_ID=$CLIENT_ID --build-arg ACCESS_KEY=$ACCESS_KEY --build-arg SECRET_KEY=$SECRET_KEY  -t johnnie3000/dev:v0 .
@@ -16,5 +16,5 @@ phases:
 
   post_build:
     commands:
-      - mvn verify
+#      - mvn verify
       - echo Build completed on `date`
