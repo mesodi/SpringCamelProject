@@ -65,6 +65,22 @@ public class CamelService {
             return "Error occurred during getting info from user contact: " + e.getMessage();
         }
     }
+
+    public String criminalRoute() {
+        try {
+            // Trigger the Camel route using ProducerTemplate
+            ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
+            // Sending a message to direct:contact to initiate the route
+            String response = producerTemplate.requestBody("direct:criminal", null, String.class);
+            return "Camel route processing initiated! Response from contact server: \n" + response + "\n Date: " + getFormattedTimestamp();
+        } catch (Exception e) {
+            // Log the exception or handle it in a way that provides more details
+            e.printStackTrace(); // For logging to console
+
+            return "Error occurred during getting info from user contact: " + e.getMessage();
+        }
+    }
+
     public String qualifiedApplicantsRoute() {
         try{
             ProducerTemplate producerTemplate=camelContext.createProducerTemplate();

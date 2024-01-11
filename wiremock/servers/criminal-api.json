@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/company"
+  },
+  "response": {
+    "status": 200,
+    "body": "{ \"name\": \"A123456\", { \"isCriminal\": \"False\"} }",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
+
