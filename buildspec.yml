@@ -8,7 +8,7 @@ phases:
 
   build:
     commands:
-      - echo running mvn install
+      - echo running mvn install  from aisha
       - mvn clean install
 
   post_build:
