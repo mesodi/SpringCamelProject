@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmation Page</title>
+  <style>
+    /* Add your CSS styles here */
+  </style>
+</head>
+<body>
+<h2>Confirmation Page</h2>
+<form action="/confirm" method="post">
+  <label>
+    <input type="text" name="username" placeholder="Username" required>
+  </label><br>
+  <label>
+    <input type="text" name="confirmationCode" placeholder="Confirmation Code" required>
+  </label><br>
+  <button type="submit">Confirm</button>
+</form>
+<p th:if="${error}" style="color: red" th:text="${error}"></p>
+</body>
+</html>

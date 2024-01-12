@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+<h2>Login Page</h2>
+<form action="/login" method="post">
+    <label>
+        <input type="text" name="username" placeholder="Username" required>
+    </label><br>
+    <label>
+        <input type="password" name="password" placeholder="Password" required>
+    </label><br>
+    <button type="submit">Login</button>
+</form>
+<p th:if="${error}" style="color: red" th:text="${error}"></p>
+
+<!-- Link to switch to the registration page -->
+<p>Don't have an account? <a href="/register">Register here</a></p>
+
+</body>
+</html>

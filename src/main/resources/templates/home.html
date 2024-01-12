@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Camel Route Demo</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        /* Style the buttons */
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        /* Style the container div */
+        div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        /* Style the JSON fields */
+        pre {
+            flex: 1;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap; /* Preserve newlines and wrapping */
+            overflow: auto;
+        }
+    </style>
+    <script th:inline="javascript">
+        // Function to make an AJAX request to the backend and display formatted JSON in the corresponding field
+        function initiateRoute(route) {
+            $.ajax({
+                type: 'GET',
+                url: '/' + route,
+                success: function (data) {
+                    const formattedJson = JSON.stringify(data, null, 2)
+                        .replace(/\\n/g, '\n')  // Replace "\\n" with actual newline character
+                        .replace(/\\"/g, '"')   // Remove unnecessary escape characters before double quotes
+                        .replace(/,/g, ',\n');  // Add newline after commas
+
+                    $('#' + route + 'Field').text(formattedJson);
+                },
+                error: function (error) {
+                    console.error('Error initiating route ' + route + ': ' + JSON.stringify(error));
+                }
+            });
+        }
+    </script>
+
+
+</head>
+<body>
+<h1>Welcome to the Home Page</h1>
+<br/>
+<h2>Camel Route Demo</h2>
+
+<!-- Buttons to initiate Camel routes -->
+<div>
+    <button onclick="initiateRoute('police')">Initiate Police Route</button>
+    <button onclick="initiateRoute('company')">Initiate Company Route</button>
+    <button onclick="initiateRoute('contact')">Initiate Contact Route</button>
+</div>
+
+<!-- Fields to display JSON information -->
+<div>
+    <pre id="policeField"></pre>
+    <pre id="companyField"></pre>
+    <pre id="contactField"></pre>
+</div>
+
+</body>
+</html>
