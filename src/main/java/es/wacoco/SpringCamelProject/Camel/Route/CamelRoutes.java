@@ -14,28 +14,35 @@ import java.util.Map;
 public class CamelRoutes extends RouteBuilder {
     @Override
     public void configure() {
-  // Police Server
+        // Police Server
         from("direct:police")
                 .to("http://localhost:3000/police")
                 .log("Data retrieved from CamelController: ${body}")
                 .process(new Processor() {
-                             /**
-                              * @param exchange
-                              * @throws Exception
-                              */
-                             @Override
-                             public void process(Exchange exchange) throws Exception {
-                                 String jsonResponse = exchange.getIn().getBody(String.class);
-                                 //add more if needed
-                                 String filteredData =  JsonPath.read(jsonResponse, "$.username") + ", Age: " + JsonPath.read(jsonResponse, "$.age");
+                    /**
+                     * @param exchange
+                     * @throws Exception
+                     */
+                    @Override
+                    public void process(Exchange exchange) throws Exception {
+                        String jsonResponse = exchange.getIn().getBody(String.class);
 
-                                 // Set the filtered data back to the body
-                                 exchange.getIn().setBody(filteredData);
-                             }
-                         }
-                    )
+                        // Extracting desired fields from the Police Server response
+                        String firstname = JsonPath.read(jsonResponse, "$.firstname");
+                        String lastname = JsonPath.read(jsonResponse, "$.lastname");
+                        int age = JsonPath.read(jsonResponse, "$.age");
+                        String gender = JsonPath.read(jsonResponse, "$.gender");
+                        boolean criminalRecord = JsonPath.read(jsonResponse, "$.criminalRecord");
+
+                        // Formatting the extracted data
+                        String formattedData = firstname + " " + lastname + ", Age: " + age + ", Gender: " + gender + ", Criminal Record: " + criminalRecord;
+
+                        // Set the formatted data back to the body
+                        exchange.getIn().setBody(formattedData);
+                    }
+                })
                 .to("log:myLogger?level=INFO");
-        // Company Server
+
         from("direct:company")
                 .to("http://localhost:3000/company")
                 .log("Data retrieved from Company Server: ${body}")
@@ -57,10 +64,12 @@ public class CamelRoutes extends RouteBuilder {
                         for (Map<String, String> job : jobHistory) {
                             String companyName = job.get("companyName");
                             String position = job.get("position");
+                            String duration = job.get("duration");
 
-                            filteredData.append("Company Name: ").append(companyName)
-                                    .append(", Position: ").append(position)
-                                    .append("\n");
+                            // Appending each field with a new line
+                            filteredData.append("Company Name: ").append(companyName).append("\n")
+                                    .append("Position: ").append(position).append("\n")
+                                    .append("Duration: ").append(duration).append("\n\n");  // Add two newline characters after each job entry
                         }
 
                         // Set the filtered data back to the body
@@ -68,6 +77,7 @@ public class CamelRoutes extends RouteBuilder {
                     }
                 })
                 .to("log:myLogger?level=INFO");
+
 
         // Contact Server
         from("direct:contact")
