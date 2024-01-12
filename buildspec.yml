@@ -6,13 +6,13 @@ phases:
       - echo Logging in to DockerHub as $DOCKERHUB_USERNAME
       - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
       - mvn clean
+
   build:
     commands:
-      - mvn package
+      - mvn test
 
   post_build:
     commands:
       # Uncomment if necessary
       # - mvn verify
       - echo "Build completed on $(date)"
-
