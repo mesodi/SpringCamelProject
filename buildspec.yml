@@ -5,14 +5,11 @@ phases:
     commands:
       - echo Logging in to DockerHub as $DOCKERHUB_USERNAME
       - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+      - mvn clean
 
   build:
     commands:
-      - mvn clean
-      - mvn test
       - mvn package
-
-
 
   post_build:
     commands:
