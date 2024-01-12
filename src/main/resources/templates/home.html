@@ -5,11 +5,16 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff; /* Light Sky Blue */
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        h2 {
+        h1, h2 {
             text-align: center;
+            color: #336699;
         }
 
         /* Style the buttons */
@@ -17,22 +22,32 @@
             margin: 10px;
             padding: 10px;
             font-size: 16px;
+            background-color: #336699;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #265985;
         }
 
         /* Style the container div */
-        div {
+        .container {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            margin: 20px;
+            margin: 20px 0;
         }
 
         /* Style the JSON fields */
         pre {
             flex: 1;
             margin: 10px;
-            padding: 10px;
+            padding: 20px;
             border: 1px solid #ccc;
+            background-color: #e0ffff; /* Light Cyan */
             white-space: pre-wrap; /* Preserve newlines and wrapping */
             overflow: auto;
         }
@@ -57,27 +72,25 @@
             });
         }
     </script>
-
-
 </head>
 <body>
 <h1>Welcome to the Home Page</h1>
 <br/>
+<p><a href="/login">Logout</a></p>
 <h2>Camel Route Demo</h2>
 
 <!-- Buttons to initiate Camel routes -->
-<div>
+<div class="container">
     <button onclick="initiateRoute('police')">Initiate Police Route</button>
     <button onclick="initiateRoute('company')">Initiate Company Route</button>
     <button onclick="initiateRoute('contact')">Initiate Contact Route</button>
 </div>
 
 <!-- Fields to display JSON information -->
-<div>
+<div class="container">
     <pre id="policeField"></pre>
     <pre id="companyField"></pre>
     <pre id="contactField"></pre>
 </div>
-
 </body>
 </html>
