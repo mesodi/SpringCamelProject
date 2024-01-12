@@ -5,10 +5,9 @@
   },
   "response": {
     "status": 200,
-    "body": "{ \"name\": \"Jack\", \"criminalRecords\": [], \"username\": \"john_doe\", \"lastname\": \"Doe\", \"age\": 30, \"gender\": \"male\", \"additionalInfo\": { \"field1\": \"value1\", \"field2\": \"value2\" } }",
+    "body": "{ \"firstname\": \"jon\", \"lastname\": \"Doe\", \"age\": 30, \"criminalRecord\": false, \"gender\": \"male\" }",
     "headers": {
       "Content-Type": "application/json"
     }
   }
 }
-

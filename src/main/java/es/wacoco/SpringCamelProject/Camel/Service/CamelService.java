@@ -27,7 +27,7 @@ public class CamelService {
             // Sending a message to direct:police to initiate the route
             String response = producerTemplate.requestBody("direct:police", null, String.class);
 
-            return "Camel route processing initiated! Response from police server: \n" + response + "\n Date: " + getFormattedTimestamp();
+            return "Camel route processing initiated! Response from police server: \n" + response + "\n Last Updated: " + getFormattedTimestamp();
         } catch (Exception e) {
             // Log the exception or handle it in a way that provides more details
             e.printStackTrace(); // For logging to console
@@ -43,7 +43,7 @@ public class CamelService {
             // Sending a message to direct:company to initiate the route
             String response = producerTemplate.requestBody("direct:company", null, String.class);
 
-            return "Camel route processing initiated! Response from company server: \n" + response + "\n Date: " + getFormattedTimestamp();
+            return "Camel route processing initiated! Response from company server: \n" + response + "\n Last Updated: " + getFormattedTimestamp();
         } catch (Exception e) {
             // Log the exception or handle it in a way that provides more details
             e.printStackTrace(); // For logging to console
@@ -57,7 +57,7 @@ public class CamelService {
             ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
             // Sending a message to direct:contact to initiate the route
             String response = producerTemplate.requestBody("direct:contact", null, String.class);
-            return "Camel route processing initiated! Response from contact server: \n" + response + "\n Date: " + getFormattedTimestamp();
+            return "Camel route processing initiated! Response from contact server: \n" + response + "\n Last updated: " + getFormattedTimestamp();
         } catch (Exception e) {
             // Log the exception or handle it in a way that provides more details
             e.printStackTrace(); // For logging to console
@@ -72,7 +72,7 @@ public class CamelService {
             ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
             // Sending a message to direct:contact to initiate the route
             String response = producerTemplate.requestBody("direct:criminal", null, String.class);
-            return "Camel route processing initiated! Response from contact server: \n" + response + "\n Date: " + getFormattedTimestamp();
+            return "Camel route processing initiated! Response from contact server: \n" + response + "\n Last Updated: " + getFormattedTimestamp();
         } catch (Exception e) {
             // Log the exception or handle it in a way that provides more details
             e.printStackTrace(); // For logging to console
@@ -85,7 +85,7 @@ public class CamelService {
         try{
             ProducerTemplate producerTemplate=camelContext.createProducerTemplate();
             String response=producerTemplate.requestBody("direct:qualifiedApplicants",null, String.class);
-            return "Camel route processing initiated! Response from qualifiedApplicants server:\n" + response + "\n Date:" +getFormattedTimestamp();
+            return "Camel route processing initiated! Response from qualifiedApplicants server:\n" + response + "\n Last Updated:" +getFormattedTimestamp();
         }catch (Exception e){
             e.printStackTrace();
             return "Error occured during selecting the applicants:" +e.getMessage();
