@@ -9,6 +9,8 @@ phases:
   build:
     commands:
       - mvn clean
+      - mvn test
+      - mvn package
 
 
 
